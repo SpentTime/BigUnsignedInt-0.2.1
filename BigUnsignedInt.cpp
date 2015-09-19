@@ -126,18 +126,18 @@ const BigUnsignedInt BigUnsignedInt::divideBigUnsignedInt(BigUnsignedInt const &
 	tempBUI.ui_deque.pop_back();
 	UI_TYPE divisor = (tempBUI != 0ULL) ? *other.ui_deque.rbegin() + 1 : *other.ui_deque.rbegin();
 
-	BigUnsignedInt result(), remainder(*this);
-
+	BigUnsignedInt result, remainder(*this);
+	*this = 0;
 	while(remainder > other)
 	{
-		result += remainder / divisor;
+		result = remainder / divisor;
+		*this += result;
 		BigUnsignedInt subtrahend(result);
 		subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
 		subtrahend *= divisor;
 		remainder -= subtrahend;
 	}
 	result.ui_deque.erase(result.ui_deque.begin(), result.ui_deque.begin() + elem_to_move);
-	*this = result;
 	return remainder;
 }
 
@@ -276,7 +276,7 @@ BigUnsignedInt& BigUnsignedInt::operator/=(BigUnsignedInt const &other)
 		throw std::runtime_error("Divide by zero exception.");
 	if(other == 1ULL)
 		return *this;
-	if(other.size() == 1)
+	if(other.ui_deque.size() == 1)
 	{
 		*this /= other.ui_deque[0];
 		return *this;
@@ -306,13 +306,13 @@ const BigUnsignedInt BigUnsignedInt::operator*(BigUnsignedInt const &other)  con
 	BigUnsignedInt newBUI = *this;
 	newBUI *= other;
 	return newBUI;
-}/*
+}
 const BigUnsignedInt BigUnsignedInt::operator/(BigUnsignedInt const &other)  const
 {
 	BigUnsignedInt newBUI = *this;
 	newBUI /= other;
 	return newBUI;
-}*/
+}
 const BigUnsignedInt BigUnsignedInt::operator%(BigUnsignedInt const &) const
 {throw std::runtime_error("operator%(BigUnsignedInt const &) not implemented.");}
 
