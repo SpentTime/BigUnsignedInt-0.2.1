@@ -339,7 +339,7 @@ const BigUnsignedInt BigUnsignedInt::operator/(BigUnsignedInt const &other)  con
 	newBUI /= other;
 	return newBUI;
 }
-const BigUnsignedInt BigUnsignedInt::operator%(BigUnsignedInt const &) const
+const BigUnsignedInt BigUnsignedInt::operator%(BigUnsignedInt const &other) const
 {
 	BigUnsignedInt newBUI = *this;
 	newBUI %= other;

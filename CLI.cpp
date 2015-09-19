@@ -36,8 +36,8 @@ inline void do_work(string input = "")
 		
 		for(string &token : tokens)
 		{
-			// BigUnsignedInt n = 0;
-			unsigned long long n = 0;
+			BigUnsignedInt n = 0;
+			//unsigned long long n = 0;
 			
 			if (token == "exit")
 			{
@@ -62,15 +62,20 @@ inline void do_work(string input = "")
 			}
 			else
 			{
-				try
-				{
-					n = stoull(token);
-				}
-				catch(exception &e)
-				{
-					cout << "Invalid number or operations."
-							"Please try again or type 'exit'" << endl;
-					break;
+				if(token == "ans")
+					n = ans;				
+				else
+				{	
+					try
+					{
+						n = stoull(token);
+					}
+					catch(exception &e)
+					{
+						cout << "Invalid number or operations."
+								"Please try again or type 'exit'" << endl;
+						break;
+					}
 				}
 			}
 			
