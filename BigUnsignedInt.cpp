@@ -124,20 +124,33 @@ const BigUnsignedInt BigUnsignedInt::divideBigUnsignedInt(BigUnsignedInt const &
 	UI_DEQUE::size_type elem_to_move = other.ui_deque.size() - 1;
 	BigUnsignedInt tempBUI(other);
 	tempBUI.ui_deque.pop_back();
+	for(auto i = tempBUI.ui_deque.size() - 1; i != 0; --i)
+		if(tempBUI.ui_deque[i])
+			break;
+		else
+			tempBUI.ui_deque.pop_back();
 	UI_TYPE divisor = (tempBUI != 0ULL) ? *other.ui_deque.rbegin() + 1 : *other.ui_deque.rbegin();
 
-	BigUnsignedInt result, remainder(*this);
+	BigUnsignedInt remainder(*this);
 	*this = 0;
 	while(remainder > other)
 	{
-		result = remainder / divisor;
-		*this += result;
+		BigUnsignedInt result = remainder / divisor;
 		BigUnsignedInt subtrahend(result);
-		subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
-		subtrahend *= divisor;
-		remainder -= subtrahend;
+		if(subtrahend.ui_deque.size() >= other.ui_deque.size())
+		{
+			*this += result;
+			subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
+			subtrahend *= other;
+			remainder -= subtrahend;
+		}
+		else
+			--divisor;
 	}
-	result.ui_deque.erase(result.ui_deque.begin(), result.ui_deque.begin() + elem_to_move);
+	if(this->ui_deque.size() >= other.ui_deque.size())
+		this->ui_deque.erase(this->ui_deque.begin(), this->ui_deque.begin() + elem_to_move);
+	else
+		*this = 0;
 	return remainder;
 }
 
@@ -286,7 +299,20 @@ BigUnsignedInt& BigUnsignedInt::operator/=(BigUnsignedInt const &other)
 }
 BigUnsignedInt& BigUnsignedInt::operator%=(BigUnsignedInt const &other)
 {
-	throw std::runtime_error("operator%=(BigUnsignedInt const &other) not implemented.");
+	if(other == 0ULL)
+		throw std::runtime_error("Divide by zero exception.");
+	if(other == 1ULL)
+	{
+		*this = 0ULL;
+		return *this;
+	}
+	if(other.ui_deque.size() == 1)
+	{
+		*this %= other.ui_deque[0];
+		return *this;
+	}
+	*this = this->divideBigUnsignedInt(other);
+	return *this;
 }
 
 const BigUnsignedInt BigUnsignedInt::operator+(BigUnsignedInt const &other)  const
@@ -314,7 +340,11 @@ const BigUnsignedInt BigUnsignedInt::operator/(BigUnsignedInt const &other)  con
 	return newBUI;
 }
 const BigUnsignedInt BigUnsignedInt::operator%(BigUnsignedInt const &) const
-{throw std::runtime_error("operator%(BigUnsignedInt const &) not implemented.");}
+{
+	BigUnsignedInt newBUI = *this;
+	newBUI %= other;
+	return newBUI;
+}
 
 const bool BigUnsignedInt::operator==(UI_TYPE const &rhValue) const
 {

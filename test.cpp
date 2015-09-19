@@ -6,12 +6,15 @@ int main()
 	BigUnsignedInt x(1);
 	for(int i = 0; i != 128; ++i)
 		x *= 2;
-	auto y = x;
+	BigUnsignedInt y = x, ans;
 	y += 1;
+
+	ans = x / y;
 	std::cout << x.toString() << " / " << y.toString() 
-		<< ": " << (x/y).toString () << std::endl;
+		<< ": " << ans.toString () << std::endl;
+	ans = y / x;
 	std::cout << y.toString() << " / " << x.toString() 
-		<< ": " << (y/x).toString () << std::endl;
+		<< ": " << ans.toString () << std::endl;
 	
 	BigUnsignedInt temp(1);
 	for(int i = 0; i != 64; ++i)
@@ -21,10 +24,12 @@ int main()
 	x += temp * 4 + 6;
 	y += temp + 6;
 	
+	ans = x/ y;
 	std::cout << x.toString() << " / " << y.toString() 
-		<< ": " << (x/y).toString () << std::endl;
+		<< ": " << ans.toString () << std::endl;
+	ans = y / x;
 	std::cout << y.toString() << " / " << x.toString() 
-		<< ": " << (y/x).toString () << std::endl;
+		<< ": " << ans.toString () << std::endl;
 
 	std::cout << "x < y " << (x < y) << std::endl;
 	std::cout << "x > y " << (x > y) << std::endl;
