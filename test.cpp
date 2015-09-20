@@ -28,6 +28,7 @@ int main()
 	// Writing a simple python script to quickly test results
 	ofstream pyfile;
 	pyfile.open("TestCalc.py");
+	pyfile << "#!/usr/bin/env python3" << endl;
 	//Standard operators by int types
 	
 	pyfile << "print('Operation BigUnsignedInt + integer')" << endl;
@@ -105,6 +106,8 @@ int main()
 		auto rn = rand();
 		if (!rn) rn = 1;
 		pyfile << "print(" << x.toString() << " // " << (y*rn).toString() << " == "
+			<< (x / (y*rn)).toString() << ")" << endl;
+		pyfile << "print('error: ', " << x.toString() << " // " << (y*rn).toString() << " - "
 			<< (x / (y*rn)).toString() << ")" << endl;
 	}
 
