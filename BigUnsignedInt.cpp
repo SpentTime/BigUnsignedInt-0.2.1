@@ -133,7 +133,7 @@ const BigUnsignedInt BigUnsignedInt::divideBigUnsignedInt(BigUnsignedInt const &
 
 	BigUnsignedInt remainder(*this);
 	*this = 0;
-	while(remainder > other)
+	while(remainder >= other)
 	{
 		BigUnsignedInt result = remainder / divisor;
 		BigUnsignedInt subtrahend(result);
@@ -281,8 +281,6 @@ BigUnsignedInt& BigUnsignedInt::operator*=(BigUnsignedInt const &other)
 	}
 	return *this;
 }
-// BigUnsignedInt& BigUnsignedInt::operator/=(BigUnsignedInt const &other) is still broken.
-
 BigUnsignedInt& BigUnsignedInt::operator/=(BigUnsignedInt const &other)
 {
 	if(other == 0ULL)

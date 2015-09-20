@@ -7,7 +7,6 @@ int main()
 	for(int i = 0; i != 128; ++i)
 		x *= 2;
 	BigUnsignedInt y = x, ans;
-	y += 1;
 
 	ans = x / y;
 	std::cout << x.toString() << " / " << y.toString() 
