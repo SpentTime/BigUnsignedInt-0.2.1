@@ -72,6 +72,12 @@ public:
 	const bool operator>=(BigUnsignedInt const &) const;
 	const bool operator<=(BigUnsignedInt const &) const;
 
+	friend const BigUnsignedInt operator+(UI_TYPE const &, BigUnsignedInt const &);
+	friend const BigUnsignedInt operator-(UI_TYPE const &, BigUnsignedInt const &);
+	friend const BigUnsignedInt operator*(UI_TYPE const &, BigUnsignedInt const &);
+	friend const BigUnsignedInt operator/(UI_TYPE const &, BigUnsignedInt const &);
+	friend const BigUnsignedInt operator%(UI_TYPE const &, BigUnsignedInt const &);
+
 	friend const bool operator==(UI_TYPE const &, BigUnsignedInt const &);
 	friend const bool operator!=(UI_TYPE const &, BigUnsignedInt const &);
 	friend const bool operator> (UI_TYPE const &, BigUnsignedInt const &);

@@ -24,6 +24,8 @@ int main()
 	x += temp * 4 + 6;
 	y += temp + 6;
 	
+	x *= 6;
+	
 	ans = x/ y;
 	std::cout << x.toString() << " / " << y.toString() 
 		<< ": " << ans.toString () << std::endl;
@@ -33,6 +35,14 @@ int main()
 
 	std::cout << "x < y " << (x < y) << std::endl;
 	std::cout << "x > y " << (x > y) << std::endl;
+
+	std::cout << "357 / " << x.toString() << ":" << 
+			(357 / x).toString();	
+
+	BigUnsignedInt z(3032);
+	
+	std::cout << "100034324 / " << z.toString() << ":" <<
+			(100034324 / z).toString();
 
 	return 0;
 }

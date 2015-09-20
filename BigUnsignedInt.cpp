@@ -435,6 +435,38 @@ const bool BigUnsignedInt::operator<=(BigUnsignedInt const &other) const
 
 // Friend functions.  
 
+const BigUnsignedInt operator+(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
+{
+	return bui + lhValue;
+}
+const BigUnsignedInt operator-(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
+{
+	BigUnsignedInt newBUI;	
+	if(lhValue > bui)
+		newBUI = lhValue - bui.ui_deque[0];
+	return newBUI;
+}
+const BigUnsignedInt operator*(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
+{
+	return bui * lhValue;
+}
+const BigUnsignedInt operator/(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
+{	
+	BigUnsignedInt newBUI;
+	if(lhValue >= bui)
+		newBUI = lhValue / bui.ui_deque[0];
+	return newBUI;
+}
+const BigUnsignedInt operator%(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
+{
+	BigUnsignedInt newBUI;
+	if(lhValue >= bui)
+		newBUI = lhValue % bui.ui_deque[0];
+	else
+		newBUI = lhValue;
+	return newBUI;
+}
+
 const bool operator==(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
 {
 	return (bui == lhValue);
@@ -445,19 +477,19 @@ const bool operator!=(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt con
 }
 const bool operator> (BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
 {
-	return (bui > lhValue);
+	return (bui < lhValue);
 }
 const bool operator< (BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
 {
-	return (bui < lhValue);
+	return (bui > lhValue);
 }
 const bool operator>=(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
 {
-	return (bui >= lhValue);
+	return (bui <= lhValue);
 }
 const bool operator<=(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
 {
-	return (bui <= lhValue);
+	return (bui >= lhValue);
 }
 
 // End of friend functions
