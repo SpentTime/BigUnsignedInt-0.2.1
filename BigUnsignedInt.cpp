@@ -438,11 +438,15 @@ const BigUnsignedInt operator+(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsign
 	return bui + lhValue;
 }
 const BigUnsignedInt operator-(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
-{
-	BigUnsignedInt newBUI;	
+{	
 	if(lhValue > bui)
+	{
+		BigUnsignedInt newBUI;	
 		newBUI = lhValue - bui.ui_deque[0];
-	return newBUI;
+		return newBUI;
+	}
+	else
+		throw std::underflow_error("Underflow error");
 }
 const BigUnsignedInt operator*(BigUnsignedInt::UI_TYPE const &lhValue, BigUnsignedInt const &bui)
 {
