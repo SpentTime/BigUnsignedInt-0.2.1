@@ -18,9 +18,6 @@ int main()
 	for(int i = 0; i != 64; ++i)
 		y *= 2;
 
-	cout << x.toString() << " + " << y.toString() << " + " << 
-		1 << " = " << (x + y + 1).toString() << endl;
-
 	x += y + 1;
 
 	srand(time(NULL));
@@ -177,6 +174,9 @@ int main()
 	}
 
 	pyfile.close();
+
+	system("chmod +x ./TestCalc.py");
+	system("./TestCalc.py");
 
 	return 0;
 }
