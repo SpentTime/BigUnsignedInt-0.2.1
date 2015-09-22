@@ -104,6 +104,7 @@ int main()
 		if (!rn) rn = 1;
 		pyfile << "print(" << x.toString() << " // " << (y*rn).toString() << " == "
 			<< (x / (y*rn)).toString() << ")" << endl;
+      pyfile << "print('Remainder: ', " << (x % (y*rn)).toString() << ")"<< endl;
 		pyfile << "print('error: ', " << x.toString() << " // " << (y*rn).toString() << " - "
 			<< (x / (y*rn)).toString() << ")" << endl;
 	}
