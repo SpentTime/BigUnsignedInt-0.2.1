@@ -122,30 +122,17 @@ const BigUnsignedInt::UI_TYPE BigUnsignedInt::divideBigUnsignedInt(UI_DEQUE::rev
 const BigUnsignedInt BigUnsignedInt::divideBigUnsignedInt(BigUnsignedInt const &other)
 {
 	UI_DEQUE::size_type elem_to_move = other.ui_deque.size() - 1;
-	BigUnsignedInt tempBUI(other);
-	tempBUI.ui_deque.pop_back();
-	for(auto i = tempBUI.ui_deque.size() - 1; i != 0; --i)
-		if(tempBUI.ui_deque[i])
-			break;
-		else
-			tempBUI.ui_deque.pop_back();
-	UI_TYPE divisor = (tempBUI != 0ULL) ? *other.ui_deque.rbegin() + 1 : *other.ui_deque.rbegin();
-
+	UI_TYPE divisor = *other.ui_deque.rbegin();
 	BigUnsignedInt remainder(*this);
 	*this = 0;
 	while(remainder >= other)
 	{
 		BigUnsignedInt result = remainder / divisor;
 		BigUnsignedInt subtrahend(result);
-		if(subtrahend.ui_deque.size() >= other.ui_deque.size())
-		{
-			*this += result;
-			subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
-			subtrahend *= other;
-			remainder -= subtrahend;
-		}
-		else
-			--divisor;
+		*this += result;
+		subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
+		subtrahend *= other;
+		remainder -= subtrahend;
 	}
 	if(this->ui_deque.size() >= other.ui_deque.size())
 		this->ui_deque.erase(this->ui_deque.begin(), this->ui_deque.begin() + elem_to_move);
