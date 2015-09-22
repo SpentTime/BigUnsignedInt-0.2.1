@@ -16,7 +16,7 @@
 #include <sstream>
 #include <iterator>
 #include <exception>
-#include "../BigUnsigned/BigUnsignedInt.h"
+#include "BigUnsignedInt.h"
 
 using namespace std;
 
