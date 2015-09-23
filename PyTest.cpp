@@ -92,9 +92,10 @@ int main()
 	pyfile << "print('Operation BigUnsignedInt * BigUnsignedInt')" << endl;
 	for(int i = 0; i != 5; ++i)
 	{
-		auto rn = rand();	
-		pyfile << "print(" << x.toString() << " * " << (y*rn).toString() << " == "
-			<< (x * (y*rn)).toString() << ")" << endl;
+		auto rn1 = rand();
+      auto rn2 = rand();	
+		pyfile << "print(" << (x*rn1).toString() << " * " << (y*rn2).toString() << " == "
+			<< ((x*rn1) * (y*rn2)).toString() << ")" << endl;
 	}
 
 	pyfile << "print('Operation BigUnsignedInt / BigUnsignedInt')" << endl;

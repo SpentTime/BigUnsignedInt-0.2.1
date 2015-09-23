@@ -1,5 +1,6 @@
 #include "BigUnsignedInt.h"
 #include <stdexcept>
+#include <iostream>
 
 //Private methods
 
@@ -132,7 +133,13 @@ const BigUnsignedInt BigUnsignedInt::divideBigUnsignedInt(BigUnsignedInt const &
 		*this += result;
 		subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
 		subtrahend *= other;
-		remainder -= subtrahend;
+		try{
+			remainder -= subtrahend;
+		}
+		catch (std::exception &e){
+			std::cerr << "exception in divideBigUnsignedInt(BigUnsignedInt const &other)" << std::endl;
+			std::cerr << e.what() << std::endl;
+		}
 	}
 	if(this->ui_deque.size() >= other.ui_deque.size())
 		this->ui_deque.erase(this->ui_deque.begin(), this->ui_deque.begin() + elem_to_move);
