@@ -130,16 +130,19 @@ const BigUnsignedInt BigUnsignedInt::divideBigUnsignedInt(BigUnsignedInt const &
 	{
 		BigUnsignedInt result = remainder / divisor;
 		BigUnsignedInt subtrahend(result);
-		*this += result;
 		subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
 		subtrahend *= other;
-		try{
-			remainder -= subtrahend;
-		}
-		catch (std::exception &e){
-			std::cerr << "exception in divideBigUnsignedInt(BigUnsignedInt const &other)" << std::endl;
-			std::cerr << e.what() << std::endl;
-		}
+		if(subtrahend <= remainder)	
+         remainder -= subtrahend;
+		else
+      {
+      	BigUnsignedInt result = remainder / (divisor + 1);
+		   BigUnsignedInt subtrahend(result);
+   		subtrahend.ui_deque.erase(subtrahend.ui_deque.begin(), subtrahend.ui_deque.begin() + elem_to_move);
+	   	subtrahend *= other;
+         remainder -= subtrahend;
+      }
+      *this += result;
 	}
 	if(this->ui_deque.size() >= other.ui_deque.size())
 		this->ui_deque.erase(this->ui_deque.begin(), this->ui_deque.begin() + elem_to_move);
